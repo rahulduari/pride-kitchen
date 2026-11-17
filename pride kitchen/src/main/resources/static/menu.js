@@ -78,6 +78,10 @@ const menuData = {
         ]
     },
 
+    // =====================================
+    // HYDERABADI DUM BIRYANI
+    // =====================================
+
     "Hyderabadi Dum Biryani": {
         "VEG": [
             "Veg Dum Biryani",
@@ -94,6 +98,10 @@ const menuData = {
         ]
     },
 
+    // =====================================
+    // TANDOOR & KEBAB
+    // =====================================
+
     "Tandoor & Kebab": {
         "NON-VEG": [
             "Tandoor Chicken (Red)",
@@ -106,6 +114,10 @@ const menuData = {
             "Paneer Tikka"
         ]
     },
+
+    // =====================================
+    // MAIN COURSE
+    // =====================================
 
     "Main Course": {
         "VEG": [
@@ -159,6 +171,26 @@ const menuData = {
         ]
     },
 
+    // =====================================
+    // 1KG BULK ORDER
+    // =====================================
+
+    "1KG Bulk Order": {
+        "VEG": [
+            "Veg Hyderabadi Dum Biryani",
+            "Paneer Hyderabadi Dum Biryani"
+        ],
+        "NON-VEG": [
+            "Chicken Hyderabadi Dum Biryani",
+            "Chicken Tikka Hyderabadi Dum Biryani",
+            "Mutton Dum Biryani"
+        ]
+    },
+
+    // =====================================
+    // COMBO MEAL
+    // =====================================
+
     "Combo Meal": {
         "COMBO": [
             "Veg. Combo Meal",
@@ -176,6 +208,10 @@ const menuData = {
             "Egg Golden Combo Meal"
         ]
     },
+
+    // =====================================
+    // FRIED RICE
+    // =====================================
 
     "Fried Rice": {
         "VEG": [
@@ -197,6 +233,10 @@ const menuData = {
             "Egg Schezwan Fried Rice"
         ]
     },
+
+    // =====================================
+    // NOODLES
+    // =====================================
 
     "Noodles": {
         "VEG": [
@@ -494,6 +534,35 @@ const priceData = {
 
 
 // =====================================
+// 1KG BULK ORDER PRICES & DETAILS
+// =====================================
+
+const bulkOrderPriceData = {
+
+    "Veg Hyderabadi Dum Biryani": 1350,
+    "Paneer Hyderabadi Dum Biryani": 1650,
+    "Chicken Hyderabadi Dum Biryani": 1750,
+    "Chicken Tikka Hyderabadi Dum Biryani": 2050,
+    "Mutton Dum Biryani": 2100
+
+};
+
+const bulkOrderDetails = {
+
+    "Veg Hyderabadi Dum Biryani": "1kg Basmati Rice & Vegetables",
+
+    "Paneer Hyderabadi Dum Biryani": "1kg Basmati Rice, Vegetable & Paneer",
+
+    "Chicken Hyderabadi Dum Biryani": "1kg Basmati Rice & 1kg Chicken",
+
+    "Chicken Tikka Hyderabadi Dum Biryani": "1kg Basmati Rice & 1kg Chicken",
+
+    "Mutton Dum Biryani": "1kg Basmati Rice & 1kg Mutton"
+
+};
+
+
+// =====================================
 // HTML ELEMENTS
 // =====================================
 
@@ -511,7 +580,22 @@ function loadCategories() {
 
     categoryList.innerHTML = "";
 
-    Object.keys(menuData).forEach((category, index) => {
+    const categoryOrder = [
+        "Hyderabadi Dum Biryani",
+        "Tandoor & Kebab",
+        "Chinese Starters",
+        "Main Course",
+        "1KG Bulk Order",
+        "Chinese Soup",
+        "Shorba",
+        "Accompaniment",
+        "Combo Meal",
+        "Golden Combo Meal",
+        "Fried Rice",
+        "Noodles"
+    ];
+
+    categoryOrder.forEach((category, index) => {
 
         const button = document.createElement("button");
 
@@ -533,8 +617,11 @@ function loadCategories() {
         categoryList.appendChild(button);
 
         if (index === 0) {
+
             button.classList.add("active");
+
             loadFoodItems(category);
+
         }
 
     });
@@ -576,13 +663,17 @@ function loadFoodItems(category) {
             const icon = document.createElement("span");
 
             if (groupName === "VEG") {
+
                 icon.className = "veg-icon";
+
             } else if (
                 groupName === "NON-VEG" ||
                 groupName === "MUTTON" ||
                 groupName === "CHICKEN / EGG"
             ) {
+
                 icon.className = "nonveg-icon";
+
             }
 
             foodName.appendChild(icon);
@@ -590,11 +681,15 @@ function loadFoodItems(category) {
 
             item.appendChild(foodName);
 
-            // Display price beside dish name
 
-            const price = priceData[food];
+            // GET PRICE BASED ON CATEGORY
+
+            const price = category === "1KG Bulk Order"
+                ? bulkOrderPriceData[food]
+                : priceData[food];
 
             const priceLabel = document.createElement("span");
+
             priceLabel.className = "food-price";
 
             if (typeof price === "number") {
@@ -617,7 +712,7 @@ function loadFoodItems(category) {
 
             item.addEventListener("click", () => {
 
-                showFoodDetails(food, groupName);
+                showFoodDetails(food, groupName, category);
 
             });
 
@@ -630,7 +725,7 @@ function loadFoodItems(category) {
     });
 
 
-    // Reset right panel when changing category
+    // RESET RIGHT PANEL
 
     foodDisplay.innerHTML = `
         <div class="food-placeholder">
@@ -647,9 +742,9 @@ function loadFoodItems(category) {
 // SELECTED FOOD DETAILS
 // =====================================
 
-function showFoodDetails(food, groupName) {
+function showFoodDetails(food, groupName, category) {
 
-    // Generate image filename using existing naming convention
+    // GENERATE IMAGE FILENAME
 
     const slug = food
         .toLowerCase()
@@ -657,12 +752,16 @@ function showFoodDetails(food, groupName) {
         .replace(/^-|-$/g, "");
 
 
-    const price = priceData[food];
+    // GET CORRECT PRICE
+
+    const price = category === "1KG Bulk Order"
+        ? bulkOrderPriceData[food]
+        : priceData[food];
 
     let priceSection = "";
 
 
-    // Single-price dishes
+    // SINGLE-PRICE DISHES
 
     if (typeof price === "number") {
 
@@ -674,7 +773,8 @@ function showFoodDetails(food, groupName) {
 
     }
 
-    // Dishes with selectable sizes or portions
+
+    // DISHES WITH SELECTABLE SIZES
 
     else if (price && typeof price === "object") {
 
@@ -706,7 +806,8 @@ function showFoodDetails(food, groupName) {
 
     }
 
-    // Missing price protection
+
+    // MISSING PRICE PROTECTION
 
     else {
 
@@ -718,6 +819,15 @@ function showFoodDetails(food, groupName) {
 
     }
 
+
+    // DESCRIPTION BASED ON CATEGORY
+
+    const description = category === "1KG Bulk Order"
+        ? bulkOrderDetails[food]
+        : "Freshly prepared with delicious ingredients at Pride Kitchen.";
+
+
+    // DISPLAY SELECTED FOOD
 
     foodDisplay.innerHTML = `
         <div class="selected-food-details">
@@ -739,8 +849,7 @@ function showFoodDetails(food, groupName) {
             ${priceSection}
 
             <p>
-                Freshly prepared with delicious ingredients
-                at Pride Kitchen.
+                ${description}
             </p>
 
             <p class="food-type">
@@ -751,7 +860,7 @@ function showFoodDetails(food, groupName) {
     `;
 
 
-    // Update price when customer changes size / portion
+    // UPDATE PRICE WHEN CUSTOMER CHANGES SIZE
 
     const variantSelect = document.getElementById("food-variant");
 
@@ -769,12 +878,11 @@ function showFoodDetails(food, groupName) {
     }
 
 
-    // Handle food image
+    // HANDLE FOOD IMAGE
 
     const image = document.getElementById("selected-food-image");
 
     const placeholder = document.getElementById("image-placeholder");
-
 
     image.onload = () => {
 
@@ -783,7 +891,6 @@ function showFoodDetails(food, groupName) {
         placeholder.style.display = "none";
 
     };
-
 
     image.onerror = () => {
 
