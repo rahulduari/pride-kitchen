@@ -24,7 +24,7 @@ html, body {
     height: 100vh;
     min-height: 600px;
     overflow: hidden;
-    background: #1a0d08;
+    background: #D3242B;
 }
 
 /* BACKGROUND IMAGE - DESKTOP */
@@ -70,6 +70,16 @@ html, body {
     font-family: Georgia, serif;
     letter-spacing: 3px;
     margin-bottom: 15px;
+}
+
+/* HYDERABADI BIRYANI SUBTITLE */
+.brand-subtitle {
+    font-size: 20px;
+    font-family: Georgia, serif;
+    letter-spacing: 5px;
+    color: #ffffff;
+    margin-top: -5px;
+    margin-bottom: 18px;
 }
 
 .welcome-text {
@@ -127,10 +137,10 @@ html, body {
         height: 100dvh;
         min-height: 0;
         overflow: hidden;
-        background: #1a0d08;
+        background: #D3242B;
     }
 
-    /* MOBILE BACKGROUND IMAGE - 100% SIZE */
+    /* MOBILE BACKGROUND IMAGE */
     .hero-section img.hero-image {
         position: absolute;
         width: 100% !important;
@@ -163,6 +173,11 @@ html, body {
         font-size: 32px;
     }
 
+    .brand-subtitle {
+        font-size: 14px;
+        letter-spacing: 3px;
+    }
+
     .welcome-text {
         font-size: 14px;
     }
@@ -175,8 +190,8 @@ html, body {
     .footer-text {
         font-size: 11px;
     }
-    /* FOOD NAME AND PRICE SPACING */
 
+    /* FOOD NAME AND PRICE SPACING */
     .food-item {
         display: flex;
         justify-content: space-between;
