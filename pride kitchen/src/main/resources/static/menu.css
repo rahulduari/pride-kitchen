@@ -10,31 +10,26 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: #fffaf2;
+    background: #D3242B;
     color: #2b1710;
 }
 
 /* ==============================
-   HEADER
+   HEADER LOGO
 ============================== */
 
 .header {
-    background: #24100b;
-    color: white;
+    background: #D3242B;
     text-align: center;
-    padding: 25px 15px;
+    padding: 15px 10px;
 }
 
-.header h1 {
-    font-size: 30px;
-    letter-spacing: 2px;
-    color: #f4c46b;
-}
-
-.header p {
-    margin-top: 8px;
-    font-size: 14px;
-    color: #fffaf2;
+.header-logo {
+    display: block;
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    margin: 0 auto;
 }
 
 /* ==============================
@@ -53,13 +48,13 @@ body {
 
 .menu-heading h2 {
     font-size: 30px;
-    color: #2b1710;
+    color: #ffffff;
     letter-spacing: 2px;
 }
 
 .menu-heading p {
     margin-top: 8px;
-    color: #755b4d;
+    color: #ffffff;
     font-size: 15px;
 }
 
@@ -252,18 +247,18 @@ body {
     margin-top: 35px;
     padding: 25px 15px;
     text-align: center;
-    background: #24100b;
+    background: #D3242B;
     color: white;
 }
 
 .footer h3 {
-    color: #f4c46b;
+    color: #ffffff;
     margin-bottom: 8px;
 }
 
 .footer p {
     font-size: 13px;
-    color: #fffaf2;
+    color: #ffffff;
 }
 
 /* ==============================
@@ -288,11 +283,11 @@ body {
 @media (max-width: 650px) {
 
     .header {
-        padding: 20px 10px;
+        padding: 12px 10px;
     }
 
-    .header h1 {
-        font-size: 24px;
+    .header-logo {
+        max-width: 100%;
     }
 
     .menu-page {
